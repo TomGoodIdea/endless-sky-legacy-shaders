@@ -14,14 +14,12 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 precision mediump float;
-precision mediump sampler2D;
 
 uniform sampler2D tex;
 uniform vec4 fade;
 
-in vec2 tpos;
-in vec2 vpos;
-out vec4 finalColor;
+varying vec2 tpos;
+varying vec2 vpos;
 
 void main() {
 	float epsilon = .001;
@@ -32,7 +30,7 @@ void main() {
 	float weight = min(min(min(weightTop, weightBottom), weightLeft), weightRight);
 	if(tpos.x > 0.0 && tpos.y > 0.0 &&
 			tpos.x < 1.0 && tpos.y < 1.0)
-		finalColor = texture(tex, tpos) * weight;
+		gl_FragColor = texture2D(tex, tpos) * weight;
 	else
 		discard;
 }

@@ -13,6 +13,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+precision mediump float;
+
 // scale maps pixel coordinates to GL coordinates (-1 to 1).
 uniform vec2 scale;
 // The (x, y) coordinates of the top left corner of the glyph.
@@ -25,11 +27,11 @@ uniform float aspect;
 uniform vec2 glyphSize;
 
 // Inputs from the VBO.
-in vec2 vert;
-in vec2 corner;
+attribute vec2 vert;
+attribute vec2 corner;
 
 // Output to the fragment shader.
-out vec2 texCoord;
+varying vec2 texCoord;
 
 // Pick the proper glyph out of the texture.
 void main() {

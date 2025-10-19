@@ -21,9 +21,9 @@ uniform vec2 scale;
 uniform vec2 srcposition;
 uniform vec2 srcscale;
 
-in vec2 vert;
-out vec2 tpos;
-out vec2 vpos;
+attribute vec2 vert;
+varying vec2 tpos;
+varying vec2 vpos;
 
 void main()
 {

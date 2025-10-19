@@ -21,8 +21,8 @@ uniform vec2 angle;
 uniform vec2 size;
 uniform float offset;
 
-in vec2 vert;
-out vec2 coord;
+attribute vec2 vert;
+varying vec2 coord;
 
 void main() {
 	coord = vert * size.x;

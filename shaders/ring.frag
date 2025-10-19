@@ -23,8 +23,7 @@ uniform float startAngle;
 uniform float dash;
 const float pi = 3.1415926535897932384626433832795;
 
-in vec2 coord;
-out vec4 finalColor;
+varying vec2 coord;
 
 void main() {
 	float arc = mod(atan(coord.x, coord.y) + pi + startAngle, 2.f * pi);
@@ -37,5 +36,5 @@ void main() {
 	float len = length(coord);
 	float lenFalloff = width - abs(len - radius);
 	float alpha = clamp(min(arcFalloff, lenFalloff), 0.f, 1.f);
-	finalColor = color * alpha;
+	gl_FragColor = color * alpha;
 }

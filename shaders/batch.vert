@@ -13,13 +13,15 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+precision mediump float;
+
 uniform vec2 scale;
 
-in vec2 vert;
-in vec3 texCoord;
-in float alpha;
-out vec3 fragTexCoord;
-out float fragAlpha;
+attribute vec2 vert;
+attribute vec3 texCoord;
+attribute float alpha;
+varying vec3 fragTexCoord;
+varying float fragAlpha;
 
 void main() {
 	gl_Position = vec4(vert * scale, 0, 1);

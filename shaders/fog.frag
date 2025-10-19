@@ -13,13 +13,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-precision mediump sampler2D;
 precision mediump float;
+
 uniform sampler2D tex;
 
-in vec2 fragTexCoord;
-out vec4 finalColor;
+varying vec2 fragTexCoord;
 
 void main() {
-	finalColor = vec4(0, 0, 0, texture(tex, fragTexCoord).r);
+	gl_FragColor = vec4(0, 0, 0, texture2D(tex, fragTexCoord).r);
 }

@@ -21,8 +21,8 @@ uniform mat2 transform;
 uniform vec2 blur;
 uniform float clip;
 
-in vec2 vert;
-out vec2 fragTexCoord;
+attribute vec2 vert;
+varying vec2 fragTexCoord;
 
 void main() {
 	vec2 blurOff = 2.f * vec2(vert.x * abs(blur.x), vert.y * abs(blur.y));

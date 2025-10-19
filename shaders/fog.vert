@@ -13,11 +13,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+precision mediump float;
+
 uniform vec2 corner;
 uniform vec2 dimensions;
 
-in vec2 vert;
-out vec2 fragTexCoord;
+attribute vec2 vert;
+varying vec2 fragTexCoord;
 
 void main() {
 	gl_Position = vec4(corner + vert * dimensions, 0, 1);

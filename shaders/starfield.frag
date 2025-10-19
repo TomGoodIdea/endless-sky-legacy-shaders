@@ -15,11 +15,10 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 precision mediump float;
 
-in float fragmentAlpha;
-in vec2 coord;
-out vec4 finalColor;
+varying float fragmentAlpha;
+varying vec2 coord;
 
 void main() {
 	float alpha = fragmentAlpha * (1. - abs(coord.x) - abs(coord.y));
-	finalColor = vec4(1, 1, 1, 1) * alpha;
+	gl_FragColor = vec4(1, 1, 1, 1) * alpha;
 }

@@ -13,17 +13,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+precision mediump float;
+
 uniform mat2 rotate;
 uniform vec2 translate;
 uniform vec2 scale;
 uniform float elongation;
 uniform float brightness;
 
-in vec2 offset;
-in float size;
-in float corner;
-out float fragmentAlpha;
-out vec2 coord;
+attribute vec2 offset;
+attribute float size;
+attribute float corner;
+varying float fragmentAlpha;
+varying vec2 coord;
 
 void main() {
 	fragmentAlpha = brightness * (4. / (4. + elongation)) * size * .2 + .05;

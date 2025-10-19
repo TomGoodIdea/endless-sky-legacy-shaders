@@ -13,13 +13,15 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+precision mediump float;
+
 uniform vec2 scale;
 uniform vec2 position;
 uniform mat2 transform;
 
-in vec2 vert;
-in vec2 vertTexCoord;
-out vec2 fragTexCoord;
+attribute vec2 vert;
+attribute vec2 vertTexCoord;
+varying vec2 fragTexCoord;
 
 void main() {
 	fragTexCoord = vertTexCoord;

@@ -21,9 +21,8 @@ uniform highp vec2 end;
 uniform float width;
 uniform int cap;
 
-in vec2 pos;
-in vec4 color;
-out vec4 finalColor;
+varying vec2 pos;
+varying vec4 color;
 
 // From https://iquilezles.org/articles/distfunctions2d/ - functions to get the distance from a point to a shape.
 
@@ -54,5 +53,5 @@ void main() {
 		dist = 1. - sdOrientedBox(pos, start, end, width);
 	}
 	float alpha = clamp(dist, 0.0, 1.0);
-	finalColor = color * alpha;
+	gl_FragColor = color * alpha;
 }

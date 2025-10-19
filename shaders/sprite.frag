@@ -14,10 +14,9 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 precision mediump float;
-precision mediump sampler2DArray;
 
-uniform sampler2DArray tex;
-uniform sampler2DArray swizzleMask;
+uniform sampler3D tex;
+uniform sampler3D swizzleMask;
 uniform int useSwizzleMask;
 uniform float frame;
 uniform float frameCount;
@@ -25,11 +24,10 @@ uniform vec2 blur;
 uniform mat4 swizzleMatrix;
 uniform int useSwizzle;
 uniform float alpha;
+
 const int range = 5;
 
-in vec2 fragTexCoord;
-
-out vec4 finalColor;
+varying vec2 fragTexCoord;
 
 void main() {
 	float first = floor(frame);
@@ -40,25 +38,25 @@ void main() {
 	{
 		if(fade != 0.f)
 			color = mix(
-				texture(tex, vec3(fragTexCoord, first)),
-				texture(tex, vec3(fragTexCoord, second)), fade);
+				texture3D(tex, vec3(fragTexCoord, first)),
+				texture3D(tex, vec3(fragTexCoord, second)), fade);
 		else
-			color = texture(tex, vec3(fragTexCoord, first));
+			color = texture3D(tex, vec3(fragTexCoord, first));
 	}
 	else
 	{
 		color = vec4(0., 0., 0., 0.);
 		const float divisor = float(range * (range + 2) + 1);
-		for(int i = -range; i <= range; ++i)
+		for(float i = -range; i <= range; ++i)
 		{
 			float scale = float(range + 1 - abs(i)) / divisor;
-			vec2 coord = fragTexCoord + (blur * float(i)) / float(range);
+			vec2 coord = fragTexCoord + blur * i / float(range);
 			if(fade != 0.f)
 				color += scale * mix(
-					texture(tex, vec3(coord, first)),
-					texture(tex, vec3(coord, second)), fade);
+					texture3D(tex, vec3(coord, first)),
+					texture3D(tex, vec3(coord, second)), fade);
 			else
-				color += scale * texture(tex, vec3(coord, first));
+				color += scale * texture3D(tex, vec3(coord, first));
 		}
 	}
 	if(useSwizzle > 0)
@@ -67,11 +65,11 @@ void main() {
 		swizzleColor = color * swizzleMatrix;
 		if(useSwizzleMask > 0)
 		{
-			float factor = texture(swizzleMask, vec3(fragTexCoord, first)).r;
+			float factor = texture3D(swizzleMask, vec3(fragTexCoord, first)).r;
 			color = color * factor + swizzleColor * (1.0 - factor);
 		}
 		else
 			color = swizzleColor;
 	}
-	finalColor = color * alpha;
+	gl_FragColor = color * alpha;
 }

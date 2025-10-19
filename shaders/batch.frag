@@ -14,21 +14,19 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 precision mediump float;
-precision mediump sampler2DArray;
 
-uniform sampler2DArray tex;
+uniform sampler3D tex;
 uniform float frameCount;
 
-in vec3 fragTexCoord;
-in float fragAlpha;
-out vec4 finalColor;
+varying vec3 fragTexCoord;
+varying float fragAlpha;
 
 void main() {
 	float first = floor(fragTexCoord.z);
 	float second = mod(ceil(fragTexCoord.z), frameCount);
 	float fade = fragTexCoord.z - first;
-	finalColor = mix(
-		texture(tex, vec3(fragTexCoord.xy, first)),
-		texture(tex, vec3(fragTexCoord.xy, second)), fade);
-	finalColor *= vec4(fragAlpha);
+	gl_FragColor = mix(
+		texture3D(tex, vec3(fragTexCoord.xy, first)),
+		texture3D(tex, vec3(fragTexCoord.xy, second)), fade);
+	gl_FragColor *= vec4(fragAlpha);
 }

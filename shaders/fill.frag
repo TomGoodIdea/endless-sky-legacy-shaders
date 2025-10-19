@@ -16,8 +16,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 precision mediump float;
 uniform vec4 color;
 
-out vec4 finalColor;
-
 void main() {
-	finalColor = color;
+	gl_FragColor = color;
 }

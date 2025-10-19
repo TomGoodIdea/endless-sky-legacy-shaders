@@ -20,12 +20,9 @@ uniform sampler2D tex;
 uniform vec4 color;
 
 // This comes from the vertex shader.
-in vec2 texCoord;
-
-// Output color.
-out vec4 finalColor;
+varying vec2 texCoord;
 
 // Multiply the texture by the user-specified color (including alpha).
 void main() {
-	finalColor = texture(tex, texCoord).a * color;
+	gl_FragColor = texture2D(tex, texCoord).a * color;
 }

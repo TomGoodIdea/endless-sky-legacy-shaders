@@ -20,8 +20,8 @@ uniform vec2 position;
 uniform float radius;
 uniform float width;
 
-in vec2 vert;
-out vec2 coord;
+attribute vec2 vert;
+varying vec2 coord;
 
 void main() {
 	coord = (radius + width) * vert;

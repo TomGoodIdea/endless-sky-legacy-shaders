@@ -25,9 +25,9 @@ uniform int cap;
 uniform vec4 startColor;
 uniform vec4 endColor;
 
-in vec2 vert;
-out vec2 pos;
-out vec4 color;
+attribute vec2 vert;
+varying vec2 pos;
+varying vec4 color;
 
 void main() {
 	// Construct a rectangle around the line that can accommodate a line of width "width".

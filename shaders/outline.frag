@@ -13,57 +13,22 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-// The outline shader applies a Sobel filter to an image. The alpha channel
-// (i.e. the silhouette of the sprite) is given the most weight, but some
-// weight is also given to the RGB values so that there will be some detail
-// in the interior of the silhouette as well.
-
-// To reduce sampling error and bring out fine details, for every output
-// pixel the Sobel filter is actually applied in a 3x3 neighborhood and
-// averaged together. That neighborhood's scale is .618034 times the scale
-// of the Sobel neighborhood (i.e. the golden ratio) to minimize any
-// aliasing effects between the two.
-
 precision mediump float;
-precision mediump sampler2DArray;
 
-uniform sampler2DArray tex;
+uniform sampler3D tex;
 uniform float frame;
 uniform float frameCount;
 uniform vec4 color;
 uniform vec2 off;
-const vec4 weight = vec4(.4, .4, .4, 1.);
 
-in vec2 fragTexCoord;
-out vec4 finalColor;
+varying vec2 fragTexCoord;
 
-float Sobel(float layer) {
-	float sum = 0.f;
-	for(int dy = -1; dy <= 1; ++dy)
-	{
-		for(int dx = -1; dx <= 1; ++dx)
-		{
-			vec2 center = fragTexCoord + .618034 * off * vec2(dx, dy);
-			float nw = dot(texture(tex, vec3(center + vec2(-off.x, -off.y), layer)), weight);
-			float ne = dot(texture(tex, vec3(center + vec2(off.x, -off.y), layer)), weight);
-			float sw = dot(texture(tex, vec3(center + vec2(-off.x, off.y), layer)), weight);
-			float se = dot(texture(tex, vec3(center + vec2(off.x, off.y), layer)), weight);
-			float h = nw + sw - ne - se + 2.f * (
-				dot(texture(tex, vec3(center + vec2(-off.x, 0.f), layer)), weight)
-				- dot(texture(tex, vec3(center + vec2(off.x, 0.f), layer)), weight));
-			float v = nw + ne - sw - se + 2.f * (
-				dot(texture(tex, vec3(center + vec2(0.f, -off.y), layer)), weight)
-				- dot(texture(tex, vec3(center + vec2(0.f, off.y), layer)), weight));
-			sum += h * h + v * v;
-		}
-	}
-	return sum;
-}
+// Stubbed out because the vanilla version didn't fit within 32 or even 64 registers lol.
 
 void main() {
-	float first = floor(frame);
+	float first = floor(frame) + off.x;
 	float second = mod(ceil(frame), frameCount);
 	float fade = frame - first;
-	float sum = mix(Sobel(first), Sobel(second), fade);
-	finalColor = color * sqrt(sum / 180.f);
+	float sum = mix(first, second, fade);
+	gl_FragColor = color * sqrt(sum) * texture3D(tex, vec3(fragTexCoord, first));
 }
