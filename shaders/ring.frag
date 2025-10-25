@@ -35,6 +35,6 @@ void main() {
 	}
 	float len = length(coord);
 	float lenFalloff = width - abs(len - radius);
-	float alpha = clamp(min(arcFalloff, lenFalloff), 0.f, 1.f);
+	float alpha = clamp(min(arcFalloff, lenFalloff), 0., 1.);
 	gl_FragColor = color * alpha;
 }

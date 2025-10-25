@@ -24,7 +24,7 @@ void main() {
 	float height = (coord.x + coord.y) / size.x;
 	float taper = height * height * height;
 	taper *= taper * .5 * size.x;
-	float alpha = clamp(.8 * min(coord.x, coord.y) - taper, 0.f, 1.f);
-	alpha *= clamp(1.8 * (1. - height), 0.f, 1.f);
+	float alpha = clamp(.8 * min(coord.x, coord.y) - taper, 0., 1.);
+	alpha *= clamp(1.8 * (1. - height), 0., 1.);
 	gl_FragColor = color * alpha;
 }
