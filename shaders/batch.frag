@@ -22,9 +22,9 @@ varying vec3 fragTexCoord;
 varying float fragAlpha;
 
 void main() {
-	float first = floor(fragTexCoord.z);
-	float second = mod(ceil(fragTexCoord.z), frameCount);
-	float fade = fragTexCoord.z - first;
+	float first = (floor(fragTexCoord.z) + .5f) / frameCount;
+	float second = (mod(ceil(fragTexCoord.z), frameCount) + .5f) / frameCount;
+	float fade = (fragTexCoord.z + .5f) / frameCount - first;
 	gl_FragColor = mix(
 		texture3D(tex, vec3(fragTexCoord.xy, first)),
 		texture3D(tex, vec3(fragTexCoord.xy, second)), fade);

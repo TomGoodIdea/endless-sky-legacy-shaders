@@ -30,9 +30,9 @@ const int range = 5;
 varying vec2 fragTexCoord;
 
 void main() {
-	float first = floor(frame);
-	float second = mod(ceil(frame), frameCount);
-	float fade = frame - first;
+	float first = (floor(frame) + .5f) / frameCount;
+	float second = (mod(ceil(frame), frameCount) + .5f) / frameCount;
+	float fade = (frame + .5f) / frameCount - first;
 	vec4 color;
 	if(blur.x == 0.f && blur.y == 0.f)
 	{
