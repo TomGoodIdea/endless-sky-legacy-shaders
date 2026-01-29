@@ -1,10 +1,10 @@
 name "Legacy shaders for Endless Sky"
 about "Unofficial support for OpenGL 2, based on the vanilla Endless Sky shaders."
-version 1.1.0
+version 1.2.0
 authors
 	"Endless Sky contributors"
 	TomGoodIdea
 tags
 	shaders
 dependencies
-	"game version" 0.10.17
+	"game version" 0.11.0

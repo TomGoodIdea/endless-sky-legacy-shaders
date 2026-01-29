@@ -20,6 +20,7 @@ uniform sampler3D swizzleMask;
 uniform int useSwizzleMask;
 uniform float frame;
 uniform float frameCount;
+uniform int uniqueSwizzleMaskFrames;
 uniform vec2 blur;
 uniform mat4 swizzleMatrix;
 uniform int useSwizzle;
@@ -65,7 +66,10 @@ void main() {
 		swizzleColor = color * swizzleMatrix;
 		if(useSwizzleMask > 0)
 		{
-			float factor = texture3D(swizzleMask, vec3(fragTexCoord, first)).r;
+			float swizzleMaskFrame = 0.f;
+			if(uniqueSwizzleMaskFrames > 0)
+				swizzleMaskFrame = first;
+			float factor = texture3D(swizzleMask, vec3(fragTexCoord, swizzleMaskFrame)).r;
 			color = color * factor + swizzleColor * (1.0 - factor);
 		}
 		else
