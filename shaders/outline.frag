@@ -26,9 +26,15 @@ varying vec2 fragTexCoord;
 // Stubbed out because the vanilla version didn't fit within 32 or even 64 registers lol.
 
 void main() {
-	float first = floor(frame) + off.x;
-	float second = mod(ceil(frame), frameCount);
-	float fade = frame - first;
-	float sum = mix(first, second, fade);
-	gl_FragColor = color * sqrt(sum) * texture3D(tex, vec3(fragTexCoord, first));
+	float first = (floor(frame) + .5f) / frameCount + off.x * .000001;
+	float second = (mod(ceil(frame), frameCount) + .5f) / frameCount;
+	float fade = (frame + .5f) / frameCount - first;
+	vec4 spriteColor;
+	if(fade != 0.f)
+		spriteColor = mix(
+			texture3D(tex, vec3(fragTexCoord, first)),
+			texture3D(tex, vec3(fragTexCoord, second)), fade);
+	else
+		spriteColor = texture3D(tex, vec3(fragTexCoord, first));
+	gl_FragColor = color * vec4(vec3((spriteColor.r + spriteColor.g + spriteColor.b) / 3), spriteColor.a);
 }
