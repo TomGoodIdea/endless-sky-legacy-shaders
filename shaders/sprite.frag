@@ -17,8 +17,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 //autoversion off
 #version 110
 
-precision mediump float;
-
 uniform sampler3D tex;
 uniform sampler3D swizzleMask;
 uniform int useSwizzleMask;
@@ -30,18 +28,18 @@ uniform mat4 swizzleMatrix;
 uniform int useSwizzle;
 uniform float alpha;
 
-const int range = 5;
+const float range = 5.;
 
 varying vec2 fragTexCoord;
 
 void main() {
-	float first = (floor(frame) + .5f) / frameCount;
-	float second = (mod(ceil(frame), frameCount) + .5f) / frameCount;
-	float fade = (frame + .5f) / frameCount - first;
+	float first = (floor(frame) + .5) / frameCount;
+	float second = (mod(ceil(frame), frameCount) + .5) / frameCount;
+	float fade = (frame + .5) / frameCount - first;
 	vec4 color;
-	if(blur.x == 0.f && blur.y == 0.f)
+	if(blur.x == 0. && blur.y == 0.)
 	{
-		if(fade != 0.f)
+		if(fade != 0.)
 			color = mix(
 				texture3D(tex, vec3(fragTexCoord, first)),
 				texture3D(tex, vec3(fragTexCoord, second)), fade);
@@ -51,12 +49,12 @@ void main() {
 	else
 	{
 		color = vec4(0., 0., 0., 0.);
-		const float divisor = float(range * (range + 2) + 1);
+		const float divisor = range * (range + 2.) + 1.;
 		for(float i = -range; i <= range; ++i)
 		{
-			float scale = float(range + 1 - abs(i)) / divisor;
-			vec2 coord = fragTexCoord + blur * i / float(range);
-			if(fade != 0.f)
+			float scale = (range + 1. - abs(i)) / divisor;
+			vec2 coord = fragTexCoord + blur * i / range;
+			if(fade != 0.)
 				color += scale * mix(
 					texture3D(tex, vec3(coord, first)),
 					texture3D(tex, vec3(coord, second)), fade);
@@ -70,7 +68,7 @@ void main() {
 		swizzleColor = color * swizzleMatrix;
 		if(useSwizzleMask > 0)
 		{
-			float swizzleMaskFrame = 0.f;
+			float swizzleMaskFrame = 0.;
 			if(uniqueSwizzleMaskFrames > 0)
 				swizzleMaskFrame = first;
 			float factor = texture3D(swizzleMask, vec3(fragTexCoord, swizzleMaskFrame)).r;

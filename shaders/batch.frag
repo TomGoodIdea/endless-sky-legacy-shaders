@@ -17,8 +17,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 //autoversion off
 #version 110
 
-precision mediump float;
-
 uniform sampler3D tex;
 uniform float frameCount;
 
@@ -26,9 +24,9 @@ varying vec3 fragTexCoord;
 varying float fragAlpha;
 
 void main() {
-	float first = (floor(fragTexCoord.z) + .5f) / frameCount;
-	float second = (mod(ceil(fragTexCoord.z), frameCount) + .5f) / frameCount;
-	float fade = (fragTexCoord.z + .5f) / frameCount - first;
+	float first = (floor(fragTexCoord.z) + .5) / frameCount;
+	float second = (mod(ceil(fragTexCoord.z), frameCount) + .5) / frameCount;
+	float fade = (fragTexCoord.z + .5) / frameCount - first;
 	gl_FragColor = mix(
 		texture3D(tex, vec3(fragTexCoord.xy, first)),
 		texture3D(tex, vec3(fragTexCoord.xy, second)), fade);

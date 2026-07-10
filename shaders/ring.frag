@@ -17,8 +17,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 //autoversion off
 #version 110
 
-precision mediump float;
-
 uniform vec4 color;
 uniform float radius;
 uniform float width;
@@ -30,9 +28,9 @@ const float pi = 3.1415926535897932384626433832795;
 varying vec2 coord;
 
 void main() {
-	float arc = mod(atan(coord.x, coord.y) + pi + startAngle, 2.f * pi);
-	float arcFalloff = 1.f - min(2.f * pi - arc, arc - angle) * radius;
-	if(dash != 0.f)
+	float arc = mod(atan(coord.x, coord.y) + pi + startAngle, 2. * pi);
+	float arcFalloff = 1. - min(2. * pi - arc, arc - angle) * radius;
+	if(dash != 0.)
 	{
 		arc = mod(arc, dash);
 		arcFalloff = min(arcFalloff, min(arc, dash - arc) * radius);

@@ -17,8 +17,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 //autoversion off
 #version 110
 
-precision mediump float;
-
 varying float fragmentAlpha;
 varying vec2 coord;
 

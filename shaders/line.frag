@@ -17,11 +17,8 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 //autoversion off
 #version 110
 
-precision mediump float;
-precision mediump int;
-
-uniform highp vec2 start;
-uniform highp vec2 end;
+uniform vec2 start;
+uniform vec2 end;
 uniform float width;
 uniform int cap;
 
@@ -30,14 +27,14 @@ varying vec4 color;
 
 // From https://iquilezles.org/articles/distfunctions2d/ - functions to get the distance from a point to a shape.
 
-float sdSegment(highp vec2 p, highp vec2 a, highp vec2 b) {
-	highp vec2 ab = b - a;
-	highp vec2 ap = p - a;
+float sdSegment(vec2 p, vec2 a, vec2 b) {
+	vec2 ab = b - a;
+	vec2 ap = p - a;
 	float h = clamp(dot(ap, ab) / dot(ab, ab), 0.0, 1.0);
 	return length(ap - h * ab);
 }
 
-float sdOrientedBox(highp vec2 p, highp vec2 a, highp vec2 b, highp float th) {
+float sdOrientedBox(vec2 p, vec2 a, vec2 b, float th) {
 	float l = length(b - a);
 	vec2 d = (b - a) / l;
 	vec2 q = (p - (a + b) * 0.5);

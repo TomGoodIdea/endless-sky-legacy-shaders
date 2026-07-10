@@ -17,8 +17,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 //autoversion off
 #version 110
 
-precision mediump float;
-
 uniform vec2 scale;
 uniform vec2 position;
 uniform float radius;
@@ -29,5 +27,5 @@ varying vec2 coord;
 
 void main() {
 	coord = (radius + width) * vert;
-	gl_Position = vec4((coord + position) * scale, 0.f, 1.f);
+	gl_Position = vec4((coord + position) * scale, 0., 1.);
 }

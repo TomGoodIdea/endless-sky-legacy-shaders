@@ -17,8 +17,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 //autoversion off
 #version 110
 
-precision mediump float;
-
 // scale maps pixel coordinates to GL coordinates (-1 to 1).
 uniform vec2 scale;
 // The (x, y) coordinates of the top left corner of the glyph.
@@ -39,7 +37,7 @@ varying vec2 texCoord;
 
 // Pick the proper glyph out of the texture.
 void main() {
-	texCoord = vec2((float(glyph) + corner.x) / 98.f, corner.y);
+	texCoord = vec2((float(glyph) + corner.x) / 98., corner.y);
 	vec2 pos = vert * glyphSize;
-	gl_Position = vec4((aspect * pos.x + position.x) * scale.x, (pos.y + position.y) * scale.y, 0.f, 1.f);
+	gl_Position = vec4((aspect * pos.x + position.x) * scale.x, (pos.y + position.y) * scale.y, 0., 1.);
 }

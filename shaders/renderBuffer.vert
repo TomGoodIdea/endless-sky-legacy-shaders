@@ -17,8 +17,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 //autoversion off
 #version 110
 
-precision mediump float;
-
 uniform vec2 size;
 uniform vec2 position;
 uniform vec2 scale;

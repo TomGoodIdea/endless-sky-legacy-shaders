@@ -17,12 +17,9 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 //autoversion off
 #version 110
 
-precision mediump float;
-precision mediump int;
-
 uniform vec2 scale;
-uniform highp vec2 start;
-uniform highp vec2 end;
+uniform vec2 start;
+uniform vec2 end;
 uniform float width;
 uniform int cap;
 
@@ -37,7 +34,7 @@ void main() {
 	// Construct a rectangle around the line that can accommodate a line of width "width".
 	vec2 unit = normalize(end - start);
 	// The vertex will originate from the start or endpoint of the line, depending on the input vertex data.
-	highp vec2 origin = vert.y > 0.0 ? start : end;
+	vec2 origin = vert.y > 0.0 ? start : end;
 	color = vert.y > 0.0 ? startColor : endColor;
 	// Pad the width by 1 so the SDFs have enough space to naturally anti-alias.
 	float widthOffset = width + 1.;

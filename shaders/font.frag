@@ -17,8 +17,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 //autoversion off
 #version 110
 
-precision mediump float;
-
 // The user must supply a texture and a color (white by default).
 uniform sampler2D tex;
 uniform vec4 color;
