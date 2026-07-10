@@ -13,6 +13,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+// Disable Endless Sky's automatic shader versioning
+//autoversion off
+#version 110
+
 precision mediump float;
 
 uniform sampler3D tex;
