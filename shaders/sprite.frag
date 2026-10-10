@@ -35,7 +35,7 @@ varying vec2 fragTexCoord;
 void main() {
 	float first = (floor(frame) + .5) / frameCount;
 	float second = (mod(ceil(frame), frameCount) + .5) / frameCount;
-	float fade = (frame + .5) / frameCount - first;
+	float fade = fract(frame);
 	vec4 color;
 	if(blur.x == 0. && blur.y == 0.)
 	{

@@ -30,7 +30,7 @@ varying vec2 fragTexCoord;
 void main() {
 	float first = (floor(frame) + .5) / frameCount + off.x * .000001;
 	float second = (mod(ceil(frame), frameCount) + .5) / frameCount;
-	float fade = (frame + .5) / frameCount - first;
+	float fade = fract(frame);
 	vec4 spriteColor;
 	if(fade != 0.)
 		spriteColor = mix(
